@@ -55,6 +55,7 @@ var config = {
 module.exports = function(env) {
   if (env === 'production') {
     plugins.push(new UglifyJsPlugin({ minimize: true, sourceMap: true }));
+
     outputFile = libraryName + '.min.js';
   } else {
     outputFile = libraryName + '.js';
