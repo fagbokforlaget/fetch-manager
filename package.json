@@ -1,0 +1,39 @@
+{
+  "name": "fetch-manager",
+  "version": "0.1.0",
+  "description": "Download manager",
+  "main": "dist/fetchmanager.umd.js",
+  "scripts": {
+    "build": "webpack --env=production",
+    "dev": "webpack --progress --colors --watch --env=devlopment",
+    "test": "mocha --require babel-register --colors ./test/*.spec.js",
+    "test:watch": "mocha --require babel-register --colors -w ./test/*.spec.js"
+  },
+  "devDependencies": {
+    "babel": "6.23.0",
+    "babel-core": "6.26.0",
+    "babel-eslint": "8.0.1",
+    "babel-loader": "7.1.2",
+    "babel-plugin-add-module-exports": "0.2.1",
+    "babel-preset-es2015": "6.24.1",
+    "babel-register": "^6.26.0",
+    "chai": "4.1.2",
+    "eslint": "4.8.0",
+    "eslint-loader": "1.9.0",
+    "mocha": "4.0.1",
+    "webpack": "3.7.1",
+    "yargs": "9.0.1"
+  },
+  "keywords": [
+    "fetch",
+    "download",
+    "manager"
+  ],
+  "author": "Michal Ostrowski",
+  "license": "MIT",
+  "dependencies": {
+    "promise-queue": "^2.2.5",
+    "superagent": "^3.6.3",
+    "zen-observable": "^0.6.0"
+  }
+}
