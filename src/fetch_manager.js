@@ -13,6 +13,14 @@ export default class FetchManager {
     return this.queue.add(new FetchJob({url: url, options: options}));
   }
 
+  createJob(url, options) {
+    return new FetchJob({url: url, options: options});
+  }
+
+  addJobToQueue(job) {
+    return this.queue.add(job);
+  }
+
   getAllDownloads() {
     return this.queue.getActiveItems();
   }
