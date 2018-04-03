@@ -94,10 +94,16 @@ export default class Queue {
     let item = this.getItem(id);
 
     if (item) {
-      return item.job.status;
+      let status = {status: item.job.status};
+
+      if (item.job.status === STATUS.PENDING && item.job.progress) {
+        status.progress = item.job.progress;
+      }
+
+      return status;
     }
 
-    return STATUS.UNDEFINED;
+    return undefined;
   }
 
   abort(id) {
