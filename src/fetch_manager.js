@@ -2,8 +2,11 @@ const Queue = require('./queue');
 const FetchJob = require('./fetch_job');
 
 export default class FetchManager {
-  constructor(maxConcurrent) {
-    this.queue = new Queue(maxConcurrent);
+  constructor(maxConcurrentJobs, maxRetries) {
+    let mcj = typeof maxConcurrentJobs === 'number' ? maxConcurrentJobs : 5;
+    let mr = typeof maxRetries === 'number' ? maxRetries : 5;
+
+    this.queue = new Queue(mcj, mr);
   }
 
   add(url, options) {

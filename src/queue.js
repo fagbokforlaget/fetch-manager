@@ -4,12 +4,12 @@ const RETRIES_METHOD = require('./retries_methods');
 const AbortError = require('./abort_error');
 
 export default class Queue {
-  constructor(maxConcurrent) {
+  constructor(maxConcurrent, maxRetries) {
     this.pendingJobs = 0;
     this.maxConcurrent = maxConcurrent;
     this.queue = [];
     this.sequence = 0;
-    this.maxRetries = 2;
+    this.maxRetries = maxRetries;
     this.retryMethod = RETRIES_METHOD.SKIP_TO_END;
     this.currentJobs = [];
     this.finishedJobs = [];
@@ -79,7 +79,7 @@ export default class Queue {
       }
     }
 
-    if(this.finishedJobs.length > 0) {
+    if (this.finishedJobs.length > 0) {
       this.finishedJobs.forEach((item) => {
         if (item.job.__id === id) {
           res = item;
