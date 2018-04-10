@@ -48,7 +48,7 @@ module.exports = {
             "error",
             "never"
         ],
-        "consistent-return": "error",
+        "consistent-return": "warn",
         "consistent-this": "off",
         "curly": "error",
         "default-case": "error",
@@ -66,7 +66,7 @@ module.exports = {
             "never"
         ],
         "func-style": [
-            "error",
+            "warn",
             "expression"
         ],
         "generator-star-spacing": "error",
@@ -145,7 +145,7 @@ module.exports = {
         "no-label-var": "error",
         "no-labels": "error",
         "no-lone-blocks": "error",
-        "no-lonely-if": "error",
+        "no-lonely-if": "warn",
         "no-loop-func": "error",
         "no-magic-numbers": "off",
         "no-mixed-operators": "error",
@@ -166,7 +166,7 @@ module.exports = {
         "no-octal-escape": "error",
         "no-param-reassign": "error",
         "no-path-concat": "error",
-        "no-plusplus": "error",
+        "no-plusplus": "warn",
         "no-process-env": "error",
         "no-process-exit": "error",
         "no-proto": "error",
@@ -234,7 +234,7 @@ module.exports = {
         ],
         "radix": "error",
         "require-await": "error",
-        "require-jsdoc": "error",
+        "require-jsdoc": "warn",
         "rest-spread-spacing": "error",
         "semi": "error",
         "semi-spacing": "error",

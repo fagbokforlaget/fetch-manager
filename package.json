@@ -32,8 +32,10 @@
   "author": "Michal Ostrowski",
   "license": "MIT",
   "dependencies": {
+    "abortcontroller-polyfill": "^1.1.8",
     "promise-queue": "^2.2.5",
     "superagent": "^3.6.3",
+    "whatwg-fetch": "^2.0.3",
     "zen-observable": "^0.6.0"
   }
 }
