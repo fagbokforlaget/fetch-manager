@@ -1,4 +1,4 @@
-const AbortController = global.AbortController;
+const AbortController = require('./abort_controller');
 const STATUS = require('./job_statuses');
 const RETRIES_METHOD = require('./retries_methods');
 const AbortError = require('./abort_error');
