@@ -15,22 +15,23 @@ export default class Queue {
     this.finishedJobs = [];
   }
 
-  add(job) {
-    return new Promise((resolve, reject) => {
-      if (!job.__id) {
-        job.setup(++this.sequence);
+  add(task) {
+    return new Promise((res, rej) => {
+      if (!task.__id) {
+        this.sequence += 1;
+        task.setup(this.sequence);
       }
 
       let abortController = new AbortController();
 
-      job.addAbortController(abortController);
+      task.addAbortController(abortController);
 
       let item = {
-        job: job,
-        promise: {
-          controller: abortController,
-          resolve: resolve,
-          reject: reject
+        'job': task,
+        'promise': {
+          'controller': abortController,
+          'reject': rej,
+          'resolve': res
         }
       };
 
@@ -94,7 +95,7 @@ export default class Queue {
     let item = this.getItem(id);
 
     if (item) {
-      let status = {status: item.job.status};
+      let status = {'status': item.job.status};
 
       if (item.job.status === STATUS.PENDING && item.job.progress) {
         status.progress = item.job.progress;
@@ -107,7 +108,7 @@ export default class Queue {
   }
 
   abort(id) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let item = this.getItem(id);
 
       if (item && item.job.status === STATUS.PENDING) {
@@ -143,7 +144,7 @@ export default class Queue {
 
     this.currentJobs.push(item);
 
-    this.pendingJobs++;
+    this.pendingJobs += 1;
 
     item.job.status = STATUS.PENDING;
 
@@ -167,7 +168,7 @@ export default class Queue {
   _resolveNow(item) {
     return Promise.resolve(item.job.start())
       .then((r) => {
-        this.pendingJobs--;
+        this.pendingJobs -= 1;
         this._removeJobFromCurrent(item);
         item.job.status = STATUS.FINISHED;
         this._dequeue();
@@ -176,21 +177,21 @@ export default class Queue {
       })
       .catch((e) => {
         if (item.job.status === STATUS.ABORTED || item.job.retries >= this.maxRetries) {
-          this.pendingJobs--;
+          this.pendingJobs -= 1;
           this._removeJobFromCurrent(item);
           item.job.status = STATUS.FAILURE;
           item.job.error = e;
           item.promise.reject(e);
           this._dequeue();
         } else {
-          item.job.retries++;
+          item.job.retries += 1;
           if (this.retryMethod === RETRIES_METHOD.SKIP_TO_END) {
             this._removeJobFromCurrent(item);
             item.job.status = STATUS.RETRY;
-            this.pendingJobs--;
+            this.pendingJobs -= 1;
             this._push(item);
           } else {
-            return this._resolveNow(item);
+            this._resolveNow(item);
           }
         }
       });

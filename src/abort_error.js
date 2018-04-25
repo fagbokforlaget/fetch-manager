@@ -1,5 +1,5 @@
 export default class AbortError extends Error {
-  constructor(response) {
+  constructor() {
     super('The operation was aborted.');
     this.name = 'AbortError';
     this.message = 'The operation was aborted.';

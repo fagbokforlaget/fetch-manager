@@ -1,4 +1,4 @@
-let AbortController = global.AbortController;
+let CustomAbortController = global.AbortController;
 
 class FakeAbortController {
   constructor() {
@@ -9,8 +9,8 @@ class FakeAbortController {
   }
 }
 
-if (!AbortController) {
-  AbortController = FakeAbortController;
+if (!CustomAbortController) {
+  CustomAbortController = FakeAbortController;
 }
 
-export default AbortController;
+export default CustomAbortController;

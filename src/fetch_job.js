@@ -14,10 +14,10 @@ export default class FetchJob extends BaseJob {
     let total = 0;
     let self = this;
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const stream = new ReadableStream({
         start(controller) {
-          function push() {
+          var push = function() {
             reader.read().then(({done, value}) => {
               if (done) {
                 controller.close();
@@ -28,12 +28,13 @@ export default class FetchJob extends BaseJob {
               controller.enqueue(value);
               push();
             });
-          }
+          };
+
           push();
         }
       });
 
-      resolve(new Response(stream, {headers: {'Content-Type': 'text/html'}}));
+      resolve(new Response(stream, {'headers': {'Content-Type': 'text/html'}}));
     });
   }
 
@@ -68,11 +69,13 @@ export default class FetchJob extends BaseJob {
           return response;
         }).then((response) => {
           if (response.body) {
-            // both: response and progress for browsers that supports this feature
+            // Both: response and progress for browsers that supports this feature
             resolve(this.consume(response.body.getReader(), response.headers.get('Content-Length')));
           } else {
-            // no progress updates
-            if (response.headers.get('Content-Type').match(/application\/json/) || response.headers.get('Content-Type').match(/text/)) {
+            // No progress updates
+            let contentType = response.headers.get('Content-Type');
+
+            if (contentType.match(/application\/json/) || contentType.match(/text/)) {
               resolve(response);
             } else {
               response.blob().then((resp) => {
