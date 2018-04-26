@@ -14,10 +14,15 @@ let fm = new FetchManager(maxConcurrentJobs, maxRetries);
 let url = "http://{...}";
 
 //for blobs
-fm.add(url, options).then((response) => {console.log("Blob object is in response ready to be used: " + response)}).catch((e) => {console.log(e)});
+fm.add(url, options)
+  .then((response) => {console.log("Blob object is in response ready to be used: " + response)})
+  .catch((e) => {console.log(e)});
 
 //json
-fm.add(url, options).then((r) => r.json()).then((r) => {console.log("success: " + r)}).catch((e) => {console.log(e)});
+fm.add(url, options)
+  .then((r) => r.json())
+  .then((r) => {console.log("success: " + r)})
+  .catch((e) => {console.log(e)});
 ```
 
 Additional methods:
@@ -26,6 +31,19 @@ Additional methods:
 fm.getAllDownloads(); //get all active and queued downloads
 fm.getStatus(id); // return status of a task (active or queued)
 fm.cancel(id); // cancels a task, return promise
+```
+
+If there's a need to listen for downloading progress (this feature works for a few browsers unfortunatelly)
+```
+var job = fm.createJob(url, options);
+
+job.setProgressListener((progress, currentlyDownloadedLength, totalLength) => {
+  console.log("progress: " + progress + "%\n");
+});
+fm.addJobToQueue(job)
+    .then((response) => {console.log("Blob object is in response ready to be use: " + response)})
+    .catch((e) => {console.log(e)});
+
 ```
 
 ## Process

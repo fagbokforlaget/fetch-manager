@@ -42,7 +42,7 @@ export default class FetchJob extends BaseJob {
     this.size = size;
     this.progress = size / totalLength * 100;
     if (this.listener) {
-      this.listener(this.size, totalLength, this.progress);
+      this.listener(this.progress, this.size, totalLength);
     }
   }
 
