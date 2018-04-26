@@ -8,13 +8,13 @@ npm install
 
 ### Use
 ```javascript
-int maxConcurrentJobs = 5;
-int maxRetries = 2;
+let maxConcurrentJobs = 5;
+let maxRetries = 2;
 let fm = new FetchManager(maxConcurrentJobs, maxRetries);
 let url = "http://{...}";
 
 //for blobs
-fm.add(url, options).then((r) => {console.log("success: " + r)}).catch((e) => {console.log(e)});
+fm.add(url, options).then((response) => {console.log("Blob object is in response ready to be used: " + response)}).catch((e) => {console.log(e)});
 
 //json
 fm.add(url, options).then((r) => r.json()).then((r) => {console.log("success: " + r)}).catch((e) => {console.log(e)});
