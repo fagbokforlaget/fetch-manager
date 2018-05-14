@@ -1,5 +1,5 @@
 {
-  "name": "fetch-manager",
+  "name": "@forlagshuset/fetch-manager",
   "version": "0.1.0",
   "description": "Download manager",
   "main": "./src/index.js",
@@ -39,5 +39,13 @@
     "superagent": "^3.6.3",
     "whatwg-fetch": "^2.0.3",
     "zen-observable": "^0.6.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/forlagshuset/fetch_manager.git"
+  },
+  "homepage": "https://bitbucket.org/forlagshuset/fetch_manager#readme"
 }
