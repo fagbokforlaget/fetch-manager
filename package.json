@@ -1,6 +1,6 @@
 {
   "name": "@forlagshuset/fetch-manager",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Download manager",
   "main": "./src/index.js",
   "browser": "./dist/FetchManager.umd.js",
