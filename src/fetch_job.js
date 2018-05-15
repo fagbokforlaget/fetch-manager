@@ -63,12 +63,15 @@ export default class FetchJob extends BaseJob {
       }
 
       promise.then((response) => {
-          if (response.status < 200 || response.status > 299) {
+          if ((response.status < 200 || response.status > 299) && response.status !== 0) {
             throw new ResponseError(response);
           }
+
           return response;
         }).then((response) => {
-          if (response.body) {
+          if (resolve.status === 0) {
+            resolve(response);
+          } else if (response.body) {
             // Both: response and progress for browsers that supports this feature
             resolve(this.consume(response.body.getReader(), response.headers.get('Content-Length')));
           } else {
