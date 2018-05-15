@@ -34,12 +34,12 @@ export default class FetchJob extends BaseJob {
         }
       });
 
-      var headers = {
+      var headersDict = {
         'Content-Length': totalLength,
         'Content-Type': 'application/octet-stream'
       };
 
-      resolve(new Response(stream, {'headers': headers}));
+      resolve(new Response(stream, {'headers': headersDict}));
     });
   }
 
