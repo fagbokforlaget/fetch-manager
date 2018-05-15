@@ -1,9 +1,9 @@
 {
   "name": "@forlagshuset/fetch-manager",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Download manager",
-  "main": "./src/index.js",
   "browser": "./dist/FetchManager.umd.js",
+  "main": "./dist/FetchManager.umd.js",
   "scripts": {
     "build": "webpack --env=production",
     "dev": "webpack --progress --colors --watch --env=devlopment",
