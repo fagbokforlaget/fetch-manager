@@ -50,7 +50,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/forlagshuset/fetch_manager.git"
+    "url": "git@github.com:fagbokforlaget/fetch-manager.git"
   },
-  "homepage": "https://bitbucket.org/forlagshuset/fetch_manager#readme"
+  "homepage": "https://github.com/fagbokforlaget/fetch-manager"
 }
