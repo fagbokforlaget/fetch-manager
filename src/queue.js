@@ -1,7 +1,7 @@
-const AbortController = require('./abort_controller');
-const STATUS = require('./job_statuses');
-const RETRIES_METHOD = require('./retries_methods');
-const AbortError = require('./abort_error');
+import AbortController from './abort_controller';
+import STATUS from './job_statuses';
+import RETRIES_METHOD from './retries_methods';
+import AbortError from './abort_error';
 
 export default class Queue {
   constructor(maxConcurrent, maxRetries) {
@@ -22,7 +22,7 @@ export default class Queue {
         task.setup(this.sequence);
       }
 
-      let abortController = new AbortController();
+      const abortController = new AbortController();
 
       task.addAbortController(abortController);
 

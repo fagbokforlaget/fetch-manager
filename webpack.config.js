@@ -1,28 +1,21 @@
-var webpack = require('webpack');
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-var path = require('path');
-var env = require('yargs').argv.mode;
+const webpack = require('webpack');
+const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-var libraryName = 'FetchManager';
+const libraryName = 'FetchManager';
 
-var plugins = [], outputFile;
+let outputFile = libraryName + '.min.js';
 
-if (env === 'build') {
-  plugins.push(new UglifyJsPlugin({ minimize: true, sourceMap: true }));
-  outputFile = libraryName + '.umd.min.js';
-} else {
-  outputFile = libraryName + '.umd.js';
-}
-
-var config = {
+module.exports =  {
+  mode: 'production',
   entry: __dirname + '/src/index.js',
   devtool: 'source-map',
   output: {
     path: __dirname + '/dist',
     filename: outputFile,
     library: libraryName,
-    libraryTarget: 'umd',
-    umdNamedDefine: true
+    libraryExport: 'default',
+    libraryTarget: 'umd'
   },
   module: {
     rules: [
@@ -32,7 +25,7 @@ var config = {
         loader: 'babel-loader',
         options: {
           presets: [
-            [ 'env', { modules: false } ]
+            [ '@babel/env', { modules: false } ]
           ]
         }
       },
@@ -49,17 +42,18 @@ var config = {
       "node_modules"
     ]
   },
-  plugins: plugins
-};
-
-module.exports = function(env) {
-  if (env === 'production') {
-    plugins.push(new UglifyJsPlugin({ minimize: true, sourceMap: true }));
-
-    outputFile = libraryName + '.min.js';
-  } else {
-    outputFile = libraryName + '.js';
-  }
-
-  return config;
+	optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true
+      })
+    ]
+	},
+  plugins: [
+		new webpack.DefinePlugin({
+    	'process.env.NODE_ENV': '"production"'
+    })
+  ]
 };
