@@ -1,5 +1,5 @@
-const Queue = require('./queue');
-const FetchJob = require('./fetch_job');
+import FetchJob from './fetch_job';
+import Queue from './queue';
 
 export default class FetchManager {
   constructor(maxConcurrentJobs, maxRetries) {

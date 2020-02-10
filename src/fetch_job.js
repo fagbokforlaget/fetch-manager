@@ -1,6 +1,6 @@
-const BaseJob = require('./base_job');
-const ResponseError = require('./response_error');
-const STATUS = require('./job_statuses');
+import BaseJob from './base_job';
+import ResponseError from './response_error';
+import STATUS from './job_statuses';
 
 export default class FetchJob extends BaseJob {
   constructor(options) {
@@ -17,7 +17,7 @@ export default class FetchJob extends BaseJob {
     return new Promise((resolve) => {
       const stream = new ReadableStream({
         start(controller) {
-          var push = function() {
+          const push = function() {
             reader.read().then(({done, value}) => {
               if (done) {
                 controller.close();
@@ -34,7 +34,7 @@ export default class FetchJob extends BaseJob {
         }
       });
 
-      var headersDict = {
+      let headersDict = {
         'Content-Length': totalLength,
         'Content-Type': 'application/octet-stream'
       };
@@ -76,7 +76,7 @@ export default class FetchJob extends BaseJob {
         }).then((response) => {
           if (resolve.status === 0) {
             resolve(response);
-          } else if (response.body) {
+          } else if (response.body && response.body.getReader) {
             // Both: response and progress for browsers that supports this feature
             resolve(this.consume(response.body.getReader(), response.headers.get('Content-Length')));
           } else {
