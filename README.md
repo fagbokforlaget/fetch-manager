@@ -8,10 +8,14 @@ npm install
 
 ### Use
 ```javascript
-let maxConcurrentJobs = 5;
-let maxRetries = 2;
-let fm = new FetchManager(maxConcurrentJobs, maxRetries);
-let url = "http://{...}";
+const maxConcurrentJobs = 5;
+const maxRetries = 2;
+const fm = new FetchManager(maxConcurrentJobs, maxRetries);
+const url = "http://{...}";
+
+// optional request options
+// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+const options = {};
 
 //for blobs
 fm.add(url, options)
