@@ -1,7 +1,7 @@
 import AbortController from './abort_controller';
-import STATUS from './job_statuses';
-import RETRIES_METHOD from './retries_methods';
 import AbortError from './abort_error';
+import RETRIES_METHOD from './retries_methods';
+import STATUS from './job_statuses';
 
 export default class Queue {
   constructor(maxConcurrent, maxRetries) {
